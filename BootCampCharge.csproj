@@ -23,10 +23,11 @@
     <PackageReference Include="System.Management" Version="8.0.0" />
   </ItemGroup>
 
-  <!-- Exclude standalone test/diagnostic project files -->
+  <!-- Exclude standalone test/diagnostic project files + legacy archive -->
   <ItemGroup>
     <Compile Remove="Ch0BTest.cs" />
     <Compile Remove="SmcDiag.cs" />
+    <Compile Remove="legacy\**" />
     <None Remove="Ch0BTest.csproj" />
     <None Remove="SmcDiag.csproj" />
   </ItemGroup>
