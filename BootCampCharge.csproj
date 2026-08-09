@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>BootCampCharge</AssemblyName>
+    <RootNamespace>BootCampCharge</RootNamespace>
+    <Version>1.0.0</Version>
+    <Company>BootCampCharge</Company>
+    <Product>BootCampCharge</Product>
+    <Description>MacBook Boot Camp charge management tool</Description>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <PlatformTarget>x64</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <!-- All .cs files (including SMC\ subdir) are auto-included by the SDK.
+       inpoutx64.dll must sit next to the exe at runtime. -->
+  <ItemGroup>
+    <None Include="drivers\inpoutx64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>inpoutx64.dll</Link>
+    </None>
+    <None Include="drivers\inpout-license.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>inpout-license.txt</Link>
+    </None>
+  </ItemGroup>
+
+</Project>
