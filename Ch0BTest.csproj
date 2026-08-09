@@ -1,45 +1,28 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
-    <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyName>BootCampCharge</AssemblyName>
+    <AssemblyName>Ch0BTest</AssemblyName>
     <RootNamespace>BootCampCharge</RootNamespace>
-    <Version>0.5.0</Version>
-    <Company>BootCampCharge</Company>
-    <Product>BootCampCharge</Product>
-    <Description>MacBook Boot Camp charge management tool</Description>
     <PlatformTarget>x64</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <EnableDefaultItems>false</EnableDefaultItems>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="System.Management" Version="8.0.0" />
   </ItemGroup>
-
-  <!-- Exclude standalone test/diagnostic project files -->
   <ItemGroup>
-    <Compile Remove="Ch0BTest.cs" />
-    <Compile Remove="SmcDiag.cs" />
-    <None Remove="Ch0BTest.csproj" />
-    <None Remove="SmcDiag.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <Compile Include="Ch0BTest.cs" />
+    <Compile Include="BatteryManager.cs" />
+    <Compile Include="AppConfig.cs" />
+    <Compile Include="SMC\**\*.cs" />
     <None Include="drivers\inpoutx64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>inpoutx64.dll</Link>
     </None>
-    <None Include="drivers\inpout-license.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Link>inpout-license.txt</Link>
-    </None>
   </ItemGroup>
-
 </Project>
