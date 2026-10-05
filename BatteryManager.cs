@@ -69,7 +69,9 @@ public sealed class BatteryManager : IDisposable
 
     /// <summary>
     /// 设置充电限制。直接写 BCLM（一次性硬件写入，固件接管）。
-    /// 100% = 清除限制（BCLM=0）。
+    /// 100% = 清除限制（写 BCLM=100）。
+    /// ⚠️ 2026-10-05 实测修正：本机固件语义 BCLM=0 = 「上限 0% = 停止充电」而非「无限制」。
+    /// 旧版此处写 0 导致用户关闭限制后机器插电不充（今天 15:30 实际发生）。
     /// </summary>
     public void SetChargeLimit(int percent)
     {
@@ -77,8 +79,8 @@ public sealed class BatteryManager : IDisposable
         _chargeLimit = percent;
         _chargeLimitEnabled = percent < 100;
 
-        // BCLM: 0 = 不限制（充到100%），1-100 = 充电上限
-        WriteBclm(percent >= 100 ? 0 : percent);
+        // BCLM: 1-100 = 充电上限，100 = 无限制（绝不能写 0 —— 0 = 停止充电）
+        WriteBclm(percent >= 100 ? 100 : percent);
     }
 
     /// <summary>启动时从硬件同步当前 BCLM 值。</summary>
@@ -92,8 +94,10 @@ public sealed class BatteryManager : IDisposable
         }
         else if (bclm == 0)
         {
+            // 遗留的 0 值（旧版本写入或异常状态）——主动修复为 100，防止「插电不充」复发
             _chargeLimit = 100;
             _chargeLimitEnabled = false;
+            WriteBclm(100);
         }
     }
 
